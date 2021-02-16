@@ -7,7 +7,7 @@ import Deck from './Deck'
 
 class DeckList extends Component {
     componentDidMount() {
-        this.props.receiveDecks()
+        this.props.rDecks()
     }
 
     renderItem = ({ item }) => {
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    receiveDecks: () => dispatch(handleReceiveDecks())
+    rDecks: () => dispatch(handleReceiveDecks())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

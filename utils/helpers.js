@@ -8,10 +8,10 @@ export function clearLocalNotification () {
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-function createNotification () {
+function addNotification () {
   return {
-    title: 'Take a quiz!',
-    body: "👋 don't forget to take a quiz today!",
+    title: 'Get a Quiz!',
+    body: "👋 HI Go to Quiz now!",
     ios: {
       sound: true,
     },
@@ -24,7 +24,7 @@ function createNotification () {
   }
 }
 
-export function setLocalNotification () {
+export function localNotification () {
    AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
@@ -40,7 +40,7 @@ export function setLocalNotification () {
               tomorrow.setMinutes(0)
               
               Notifications.scheduleLocalNotificationAsync(
-                createNotification(),
+                addNotification(),
                 {
                   time: tomorrow,
                   repeat: 'day',

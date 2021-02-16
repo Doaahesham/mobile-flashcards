@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet,ScrollView, TouchableOpacity, Alert } from 'react-native'
-import { clearLocalNotification, setLocalNotification} from '../utils/helpers'
+import { clearLocalNotification, localNotification} from '../utils/helpers'
 import { connect } from 'react-redux';
 import { blue} from '../utils/color'
 // import { removeDeck } from '../actions/index';
@@ -21,7 +21,7 @@ class DeckDetail extends Component {
     handleStartQuiz = () => {
         const { questions } = this.props.deck
         if(this.props.deck.questions.length !== 0) {
-            clearLocalNotification().then(setLocalNotification)
+            clearLocalNotification().then(localNotification)
             this.props.navigation.navigate('Quiz', {questions})
         } else Alert.alert(
             "Empty Deck",

@@ -2,11 +2,11 @@ import { getDecks, removeDeckAS, saveDeckTitle } from '../utils/apiHelpers'
 import { addCardToDeck} from '../utils/apiHelpers'
   
 export const GET_DECKS = 'GET_DECKS' 
-export const CREATE_DECK = 'CREATE_DECK'
+export const ADD_DECK = 'ADD_DECK'
 export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK'
-export const REMOVE_DECK = 'REMOVE_DECK';
+// export const REMOVE_DECK = 'REMOVE_DECK';
 
-export function receiveDecks(decks) {
+export function rDecks(decks) {
     return {
         type: GET_DECKS,
         decks
@@ -15,7 +15,7 @@ export function receiveDecks(decks) {
 
 export function createDeck(title) {
     return {
-        type: CREATE_DECK,
+        type: ADD_DECK,
         title
     }
 }
@@ -27,16 +27,16 @@ export function createCard (title, card) {
         card,
     }
 }
-export function removeDeck(id) {
-  return {
-    type: REMOVE_DECK,
-    id,
-  }
-}
+// export function removeDeck(id) {
+//   return {
+//     type: REMOVE_DECK,
+//     id,
+//   }
+// }
 
 export const handleReceiveDecks = () => dispatch => (
     getDecks().then(data => {
-        dispatch(receiveDecks(data))
+        dispatch(rDecks(data))
     })
 )
 

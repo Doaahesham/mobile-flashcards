@@ -1,4 +1,4 @@
-import { GET_DECKS, CREATE_DECK, ADD_CARD_TO_DECK, REMOVE_DECK } from '../actions/index'
+import { GET_DECKS, ADD_DECK, ADD_CARD_TO_DECK, REMOVE_DECK } from '../actions/index'
 
 export default function reducer (state = {}, action) {
     switch (action.type) {
@@ -9,7 +9,7 @@ export default function reducer (state = {}, action) {
                     ...JSON.parse(action.decks)
                 }
             } else return {}
-        case CREATE_DECK:
+        case ADD_DECK:
             return {
                 ...state,
                 [action.title]: {

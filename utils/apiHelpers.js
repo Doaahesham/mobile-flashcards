@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import { DECK_STORAGE_KEY } from './helpers'
 
-const dataIntial ={
+const dataIntial = {
     React: {
       title: 'React',
       questions: [
@@ -51,24 +51,24 @@ export function addCardToDeck (title, card) {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
         .then((results) => {
             const decks = JSON.parse(results)
-            const newDeck = {
+            const deckNew = {
                 ...decks,
                 [title]: {
                     title: title,
                     questions: [...decks[title].questions, card]
                 }
             }
-            AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(newDeck))
+            AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deckNew))
         })
 }
-export async function removeDeckAS(key) {
-  try {
-    const results = await AsyncStorage.getItem(DECK_STORAGE_KEY);
-    const data = JSON.parse(results);
-    data[key] = undefined;
-    delete data[key];
-    AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data));
-  } catch (err) {
-    console.log(err);
-  }
-}
+// export async function removeDeckAS(key) {
+//   try {
+//     const results = await AsyncStorage.getItem(DECK_STORAGE_KEY);
+//     const data = JSON.parse(results);
+//     data[key] = undefined;
+//     delete data[key];
+//     AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data));
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
