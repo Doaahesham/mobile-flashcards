@@ -1,25 +1,17 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-
+import { darkGray,white, blue } from '../utils/color'
 class Deck extends Component {
     render() {
+        //shape of deck and 
         return(
-            <TouchableOpacity 
-                style={styles.box} 
-                onPress={() => this.props.navigation.navigate(
+            <TouchableOpacity style={styles.shape} onPress={() => this.props.navigation.navigate(
                 'DeckDetail',
-                {
-                    title: this.props.title,
-                    questions: this.props.questions
-                }
-            )}>
+                { title: this.props.title,
+                  questions: this.props.questions})}>
                     <View style={styles.container}>
-                        <Text style={styles.title}>
-                            {this.props.title}
-                        </Text>
-                        <Text style={styles.subTitle}>
-                            {this.props.questions.length} cards
-                        </Text>
+                        <Text style={styles.title}>{this.props.title}</Text>
+                        <Text style={styles.subTitle}>{this.props.questions.length}Cards</Text>
                     </View>
             </TouchableOpacity>
         )
@@ -29,17 +21,14 @@ class Deck extends Component {
 export default Deck
 
 const styles = StyleSheet.create({
-    box: {
+    shape: {
         flex: 1,
-        height: 200,
-        maxWidth: '45%',
-        backgroundColor: '#ffffff',
-        borderRadius: 5,
-        margin: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,
+        height: 100,
+        maxWidth: '100%',
+        backgroundColor: blue ,
+        borderRadius: 100,
+        margin: 5,
+
     },
     container: {
         flex: 1,
@@ -47,12 +36,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: 'bold',
-        color: '#455356',
+        color: white,
     },
-    subTitle: {
-        fontSize: 14,
-        color: '#838c8e',
+    subTitle:{
+        fontSize: 15,
+        color: darkGray,
     }
 })
