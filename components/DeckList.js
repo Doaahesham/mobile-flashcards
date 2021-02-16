@@ -11,15 +11,18 @@ class DeckList extends Component {
     }
 
     renderItem = ({ item }) => {
-        return <Deck 
-                    title={item.title} 
-                    questions={item.questions}
-                    navigation={this.props.navigation}
-                    />
-    }
+    //  console.log(item[title]);
+       return<Deck 
+        title={item.title} 
+        questions={item.questions}
+        navigation={this.props.navigation}
+        />
+}
+        
 
     render () {
         const data = Object.values(this.props.decks)
+        // console.log(data);
         // console.log('Important', data)
         return(
             Object.keys(data).length === 0 
@@ -34,8 +37,11 @@ class DeckList extends Component {
                     renderItem={this.renderItem}
                     keyExtractor={(item) => item.title}
                 />
+                {/* {console.log(data)} */}
              </View>
+             
         )
+      
     }
 }
 

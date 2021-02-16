@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, StyleSheet,ScrollView, TouchableOpacity, Alert } from 'react-native'
 import { clearLocalNotification, setLocalNotification} from '../utils/helpers'
 import { connect } from 'react-redux';
 import { blue} from '../utils/color'
-import { removeDeck } from '../actions/index';
-import { removeDeckAS } from '../utils/apiHelpers';
+// import { removeDeck } from '../actions/index';
+// import { removeDeckAS } from '../utils/apiHelpers';
+// import PropTypes from 'prop-types';
+// import { handleD } from  '../actions/index';
 
 
 
@@ -15,7 +17,7 @@ class DeckDetail extends Component {
             title: navigation.state.params.title
         }
     }
-
+    
     handleStartQuiz = () => {
         const { questions } = this.props.deck
         if(this.props.deck.questions.length !== 0) {
@@ -28,23 +30,25 @@ class DeckDetail extends Component {
             {cancelable: false}
         )
     }
-    
-handleDeleteQuiz = id => {
-    const { removeDeck, navigation } = this.props;
-
-    removeDeck(id);
-    removeDeckAS(id);
-
-    navigation.goBack();
-  };
-
-
-
-
+    // static propTypes = {
+    //     navigation: PropTypes.object.isRequired,
+    //     removeDeck: PropTypes.func.isRequired,
+        
+    //   };
+    //   shouldComponentUpdate(nextProps) {
+    //     return nextProps.deck !== undefined;
+    //   }
+    // handleDeleteQuiz = (id) => {
+    //     const { navigation } = this.props;
+    //     this.props.dispatch(handleD(id)).then(()=>console.log("mas7t"));
+    //     // handleD(id);
+    //     console.log("3det 3leha");
+    //     navigation.goBack();
+    //   }
     render() {
         const { title, questions } = this.props.deck
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.Box}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subTitle}>{questions.length} cards</Text>
@@ -58,10 +62,7 @@ handleDeleteQuiz = id => {
                 <TouchableOpacity style={styles.button} onPress={this.handleStartQuiz}>
                     <Text style={styles.buttonText}>Start Quiz</Text>
                 </TouchableOpacity>
-                   <TouchableOpacity style={styles.button} onPress={this.handleDeleteQuiz}>
-                    <Text style={styles.buttonText}>Delete Deck</Text>
-                </TouchableOpacity>
-            </View>
+            </ScrollView>
         )
     }
 }
@@ -72,7 +73,7 @@ const mapStateToProps = (state, { navigation }) => {
     }
 }
 
-export default connect(mapStateToProps, null)(DeckDetail)
+export default connect(mapStateToProps)(DeckDetail)
 
 const styles = StyleSheet.create({
     Box: {

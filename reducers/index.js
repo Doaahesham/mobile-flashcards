@@ -17,13 +17,10 @@ export default function reducer (state = {}, action) {
                     questions: []
                 }
             }
-         case REMOVE_DECK:
-               const { id } = action;
-      // return ({ [id]: value, ...remainingDecks } = state);
-               const { [id]: value, ...remainingDecks } = state;
-      // console.log(remainingDecks);
-              return {remainingDecks}
-
+        //  case REMOVE_DECK:
+        //        const { id } = action;
+        //        const { [id]: value, ...remainingDecks } = state;
+        //       return {remainingDecks}
         case ADD_CARD_TO_DECK:
             return {
                 ...state,

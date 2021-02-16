@@ -63,11 +63,11 @@ export function addCardToDeck (title, card) {
 }
 export async function removeDeckAS(key) {
   try {
-    const results = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+    const results = await AsyncStorage.getItem(DECK_STORAGE_KEY);
     const data = JSON.parse(results);
     data[key] = undefined;
     delete data[key];
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+    AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data));
   } catch (err) {
     console.log(err);
   }

@@ -1,5 +1,5 @@
-import { getDecks, saveDeckTitle } from '../utils/apiHelpers'
-import { addCardToDeck , removeDeckAS } from '../utils/apiHelpers'
+import { getDecks, removeDeckAS, saveDeckTitle } from '../utils/apiHelpers'
+import { addCardToDeck} from '../utils/apiHelpers'
   
 export const GET_DECKS = 'GET_DECKS' 
 export const CREATE_DECK = 'CREATE_DECK'
@@ -30,7 +30,7 @@ export function createCard (title, card) {
 export function removeDeck(id) {
   return {
     type: REMOVE_DECK,
-    id
+    id,
   }
 }
 
@@ -53,3 +53,12 @@ export function handleCreateCard(title, card) {
         })
     }
 }
+// export function handleD(id) {
+//     console.log("ahoooooooooooooooo");
+//     console.log(`el id = ${id}`);
+//     return (dispatch) => {
+//         return removeDeckAS(id).then(() => {
+//             dispatch(removeDeck(id))
+//         })
+//     }
+// }
