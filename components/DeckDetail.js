@@ -1,0 +1,119 @@
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { clearLocalNotification, setLocalNotification} from '../utils/helpers'
+import { connect } from 'react-redux';
+import { blue} from '../utils/color'
+import { removeDeck } from '../actions/index';
+import { removeDeckAS } from '../utils/apiHelpers';
+
+
+
+
+class DeckDetail extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: navigation.state.params.title
+        }
+    }
+
+    handleStartQuiz = () => {
+        const { questions } = this.props.deck
+        if(this.props.deck.questions.length !== 0) {
+            clearLocalNotification().then(setLocalNotification)
+            this.props.navigation.navigate('Quiz', {questions})
+        } else Alert.alert(
+            "Empty Deck",
+            "Add some cards to start your quiz!",
+            [{text: "OK", onPress:() => {}}],
+            {cancelable: false}
+        )
+    }
+    
+handleDeleteQuiz = id => {
+    const { removeDeck, navigation } = this.props;
+
+    removeDeck(id);
+    removeDeckAS(id);
+
+    navigation.goBack();
+  };
+
+
+
+
+    render() {
+        const { title, questions } = this.props.deck
+        return (
+            <View style={styles.container}>
+                <View style={styles.Box}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subTitle}>{questions.length} cards</Text>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate(
+                    'AddCard',
+                    {title}
+                    )}>
+                    <Text style={styles.buttonText}>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={this.handleStartQuiz}>
+                    <Text style={styles.buttonText}>Start Quiz</Text>
+                </TouchableOpacity>
+                   <TouchableOpacity style={styles.button} onPress={this.handleDeleteQuiz}>
+                    <Text style={styles.buttonText}>Delete Deck</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+}
+
+const mapStateToProps = (state, { navigation }) => {
+    return {
+        deck: state[navigation.state.params.title]
+    }
+}
+
+export default connect(mapStateToProps, null)(DeckDetail)
+
+const styles = StyleSheet.create({
+    Box: {
+        borderRadius: 5,
+        height: 400,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 30,
+        marginBottom: 75,
+        marginHorizontal: 30,
+        backgroundColor: '#ffffff',
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: 'black',
+        shadowOpacity: 1,
+        elevation: 6,
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#455356',
+    },
+    subTitle: {
+        fontSize: 14,
+        color: '#838c8e',
+    },
+    button: {
+        backgroundColor: blue,
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 50,
+        borderRadius: 10,
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: 'black',
+        shadowOpacity: 1,
+        elevation: 6,
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'white',
+    },
+})
