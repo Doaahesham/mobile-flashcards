@@ -1,5 +1,5 @@
 import {AsyncStorage } from 'react-native'
-import { Notifications} from 'expo'
+import * as Notifications from 'expo-notifications'
  import * as Permissions from 'expo-permissions'
 export const DECK_STORAGE_KEY = 'FlashCard:decks'
 const NOTIFICATION_KEY = 'FlashCard:notifications'

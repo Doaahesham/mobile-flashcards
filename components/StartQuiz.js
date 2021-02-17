@@ -9,7 +9,7 @@ import { orange,darkGray,white,blue} from '../utils/color'
 const StartQuiz = (deck, navigation) => {
     const questions = deck
     if(questions.length !== 0) {
-        clearLocalNotification().then(localNotification)
+        // clearLocalNotification().then(localNotification)
         navigation.navigate('Quiz', {questions})
     } else Alert.alert(
         "Empty!!",

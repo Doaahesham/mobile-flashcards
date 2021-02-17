@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import { orange,darkGray,white,blue,red,green, textGray} from '../utils/color'
 import { withNavigation } from 'react-navigation'
+import { clearLocalNotification, localNotification} from '../utils/helpers'
 
 
 class Quiz extends Component {
@@ -67,6 +68,10 @@ class Quiz extends Component {
 
     render() {
         const { isFlipped, questions, correctAnswers, wrongAnswers, index, finish } = this.state
+        if (finish === true){
+            clearLocalNotification().then(localNotification);
+            // console.log("mas7tha");
+        }
         return(
             <View style={styles.container}>
                 {
