@@ -3,6 +3,7 @@ import { TextInput, View, Text, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { white,textGray,orange, blue } from '../utils/color'
 import { connect } from 'react-redux'
 import { handleCreateCard } from '../actions/index'
+
 class AddCard extends Component {
     state = {
         question: '',

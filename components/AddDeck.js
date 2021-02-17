@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { handleCreateDeck } from '../actions/index'
 import { connect } from 'react-redux'
-import { blue } from '../utils/color'
+import { orange,darkGray,white,blue, textGray} from '../utils/color'
 
-class NewDeck extends Component {
+class AddDeck extends Component {
     state = {
         input: '',
     }
 
-    handleTextChange = (input) => {
+    handleInput = (input) => {
         this.setState(() => ({
             input
         }))
@@ -19,8 +19,8 @@ class NewDeck extends Component {
         const { input } = this.state
         if (input === '') {
             Alert.alert(
-                "Empty Title",
-                "Add title to your deck!",
+                "Empty!!",
+                "Please Fill with Deck Title to Submit!",
                 [{text: "OK", onPress:() => {}}],
                 {cancelable: false}
             )
@@ -41,12 +41,8 @@ class NewDeck extends Component {
     render () {
         return(
             <View style={styles.container}>
-                <Text style={styles.text}>What is the title of your new deck?</Text>
-                <TextInput
-                    style={styles.input}
-                    value={this.state.input} 
-                    onChangeText={this.handleTextChange}
-                    placeholder='Deck Title' />
+                <Text style={styles.text}>What Is The Title?</Text>
+                <TextInput style={styles.input} value={this.state.input} onChangeText={this.handleInput} placeholder='Deck Title' />
                 <TouchableOpacity style={styles.button} onPress={this.submitDeck}>
                     <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
@@ -63,37 +59,30 @@ const mapDispatchToProps = dispatch => ({
     createDeck: (title) => dispatch(handleCreateDeck(title))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#eaeaea'
-    },
     text: {
-        fontSize: 22,
-        color: '#455356',
-        margin: 30,
+        fontSize: 25,
+        color: textGray,
+        margin: 80,
+        marginLeft:70,
     },
     input: {
         margin: 30,
         padding: 10,
     },
     button: {
-        backgroundColor: blue,
+        backgroundColor: orange,
         margin: 30,
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        borderRadius: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,
+        borderRadius: 20,
     },
     buttonText: {
-        fontSize: 18,
-        color: 'white',
+        fontSize: 20,
+        color: white,
     }
 
 })

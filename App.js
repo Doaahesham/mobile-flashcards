@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StatusBar } from 'react-native';
 import DeckList from './components/DeckList'
-import NewDeck from './components/NewDeck'
+import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
 import Quiz from './components/Quiz'
 import AddCard from './components/AddCard'
@@ -32,8 +32,8 @@ const Tabs = createMaterialTopTabNavigator({
       tabBarLabel: 'DECKS',
     }
   },
-  NewDeck: {
-    screen: NewDeck,
+  AddDeck: {
+    screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'NEW DECK '
     }
