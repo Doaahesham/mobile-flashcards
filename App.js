@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StatusBar,StyleSheet } from 'react-native';
-import DeckList from './components/DeckList'
+import ListDeck from './components/ListDeck'
 import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
 import Quiz from './components/Quiz'
@@ -27,7 +27,7 @@ function FlashCardStatusBar ({ backgroundColor, ...props }) {
 
 const Tabs = createMaterialTopTabNavigator({
   Deck: {
-    screen: DeckList,
+    screen: ListDeck,
     navigationOptions: {
       tabBarLabel: 'DECKS',
     }
@@ -93,8 +93,10 @@ const MainNavigator = createStackNavigator({
   }
 })
 const Nav=createAppContainer(MainNavigator);
-const store = createStore(reducer, applyMiddleware(thunk))
 
+
+
+const store = createStore(reducer, applyMiddleware(thunk))
  export default class App extends React.Component {
   componentDidMount() {
     localNotification()
