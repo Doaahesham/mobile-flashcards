@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet,ScrollView, TouchableOpacity, Alert } from 'react-native'
 import { clearLocalNotification, localNotification} from '../utils/helpers'
 import { connect } from 'react-redux';
-import { blue} from '../utils/color'
+import { orange,darkGray,white,blue} from '../utils/color'
+import StartQuiz from './StartQuiz'
 // import { removeDeck } from '../actions/index';
 // import { removeDeckAS } from '../utils/apiHelpers';
 // import PropTypes from 'prop-types';
@@ -16,19 +17,6 @@ class DeckDetail extends Component {
         return {
             title: navigation.state.params.title
         }
-    }
-    
-    handleStartQuiz = () => {
-        const { questions } = this.props.deck
-        if(this.props.deck.questions.length !== 0) {
-            clearLocalNotification().then(localNotification)
-            this.props.navigation.navigate('Quiz', {questions})
-        } else Alert.alert(
-            "Empty Deck",
-            "Add some cards to start your quiz!",
-            [{text: "OK", onPress:() => {}}],
-            {cancelable: false}
-        )
     }
     // static propTypes = {
     //     navigation: PropTypes.object.isRequired,
@@ -48,18 +36,17 @@ class DeckDetail extends Component {
     render() {
         const { title, questions } = this.props.deck
         return (
+            //addcard and start Quiz
             <ScrollView style={styles.container}>
-                <View style={styles.Box}>
+                <View style={styles.Shape}>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subTitle}>{questions.length} cards</Text>
+                    <Text style={styles.subTitle}>{questions.length}Cards</Text>
                 </View>
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate(
-                    'AddCard',
-                    {title}
-                    )}>
+                    'AddCard',{title})}>
                     <Text style={styles.buttonText}>Add Card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.handleStartQuiz}>
+                <TouchableOpacity style={styles.button} onPress={() => StartQuiz(this.props.deck.questions,this.props.navigation)}>
                     <Text style={styles.buttonText}>Start Quiz</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -76,45 +63,37 @@ const mapStateToProps = (state, { navigation }) => {
 export default connect(mapStateToProps)(DeckDetail)
 
 const styles = StyleSheet.create({
-    Box: {
-        borderRadius: 5,
-        height: 400,
+    Shape: { 
+        backgroundColor: blue ,
+        borderRadius: 300,
+        height: 300,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 30,
-        marginBottom: 75,
+        marginTop: 60,
+        marginBottom: 60,
         marginHorizontal: 30,
-        backgroundColor: '#ffffff',
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,
     },
     title: {
-        fontSize: 22,
+        fontSize: 25,
+        color: white,
         fontWeight: 'bold',
-        color: '#455356',
     },
     subTitle: {
-        fontSize: 14,
-        color: '#838c8e',
+        fontSize: 15,
+        color: darkGray,
     },
     button: {
-        backgroundColor: blue,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15,
+        backgroundColor: orange,
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
         borderRadius: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 15,
     },
     buttonText: {
-        fontSize: 18,
-        color: 'white',
+        fontSize: 20,
+        color: white,
     },
 })

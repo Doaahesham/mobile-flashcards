@@ -22,13 +22,12 @@ export default Deck
 
 const styles = StyleSheet.create({
     shape: {
+        backgroundColor: blue ,
+        borderRadius: 100,
         flex: 1,
         height: 100,
         maxWidth: '100%',
-        backgroundColor: blue ,
-        borderRadius: 100,
         margin: 5,
-
     },
     container: {
         flex: 1,
