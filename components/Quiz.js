@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-import { green, red, blue } from '../utils/color'
+import { orange,darkGray,white,blue,red,green, textGray} from '../utils/color'
 import { withNavigation } from 'react-navigation'
 
 
@@ -8,10 +8,10 @@ class Quiz extends Component {
     state = {
         isFlipped: false,
         questions: null, 
-        correctGuesses: 0,
-        wrongGuesses: 0,
+        finish: false,
+        correctAnswers: 0,
+        wrongAnswers: 0,
         index: 0,
-        finished: false,
     }
 
     componentDidMount() {
@@ -22,38 +22,33 @@ class Quiz extends Component {
     }
 
     onCorrect = () => {
-        if (!this.state.finished) {
-            this.setState((prevState) => {
-                const { questions, correctGuesses, index, finished } = prevState
-                return {
-                    correctGuesses: correctGuesses + 1 ,
+        if (!this.state.finish) {
+            this.setState((previousState) => {
+                const { questions, correctAnswers, index, finish } = previousState
+                return {correctAnswers: correctAnswers + 1 ,
                     index: index === (questions.length - 1) ? questions.length - 1 : index + 1,
-                    finished: index === (questions.length - 1) && !finished 
-                }
-            })
-        }
-    }
+                    finish: index === (questions.length - 1) && !finish }})}}
 
     onIncorrect = () => {
-        if (!this.state.finished) {
-            this.setState((prevState) => {
-                const { questions, wrongGuesses, index, finished } = prevState
+        if (!this.state.finish) {
+            this.setState((previousState) => {
+                const { questions, wrongAnswers, index, finish } = previousState
                 return {
-                    wrongGuesses: wrongGuesses + 1 ,
+                    wrongAnswers: wrongAnswers + 1 ,
                     index: index === (questions.length - 1) ? questions.length - 1 : index + 1,
-                    finished: index === (questions.length - 1) && !finished 
+                    finish: index === (questions.length - 1) && !finish 
                 }
             })
         }
     }
 
-    handleFilp = () => {
-        this.setState((prevState) => ({
-            isFlipped: !prevState.isFlipped
+    handleFilpped = () => {
+        this.setState((previousState) => ({
+            isFlipped: !previousState.isFlipped
         }))
     }
 
-    navigateToDeck = () => {
+    backToDeck = () => {
         const { goBack } = this.props.navigation
         goBack()
     }
@@ -61,50 +56,47 @@ class Quiz extends Component {
     restartQuiz = () => {
         this.setState(() => ({
             isFlipped: false,
-            correctGuesses: 0,
-            wrongGuesses: 0,
+            correctAnswers: 0,
+            wrongAnswers: 0,
             index: 0,
-            finished: false,
+            finish: false,
         }))
     }
 
     render() {
-        const { isFlipped, questions, correctGuesses, wrongGuesses, index, finished } = this.state
+        const { isFlipped, questions, correctAnswers, wrongAnswers, index, finish } = this.state
         return(
             <View style={styles.container}>
                 {
                     (questions) &&
                         (
-                            (!finished)
+                            (!finish)
                                 ? ( <View style={styles.container}>
-                                        <Text style={styles.counterText}>{index + 1} / {questions.length}</Text>
-                                        <View style={styles.groupA}>
+                                        <Text style={styles.countSentence}>{index + 1} / {questions.length}</Text>
+                                        <View style={styles.first}>
                                             <Text style={styles.questionText}>{isFlipped ? questions[index].answer : questions[index].question}</Text>
-                                            <TouchableOpacity onPress={this.handleFilp}>
-                                                <Text style={styles.flipText}>{isFlipped ? 'Question': 'Answer'}</Text>
-                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={this.handleFilpped}><Text style={styles.flippedText}>{isFlipped ? 'Question': 'Answer'}</Text></TouchableOpacity>
                                         </View>
-                                        <View style={styles.groupB}>
-                                            <TouchableOpacity style={[styles.button, styles.correctButton]} onPress={this.onCorrect}>
-                                                <Text style={styles.buttonText}>Correct</Text>
-                                            </TouchableOpacity>
+                                        <View style={styles.second}>
+                                            {/* buttons correct and incorrect */}
+                                            <TouchableOpacity style={[styles.button, styles.correctButton]} onPress={this.onCorrect}><Text style={styles.buttonText}>Correct Answer</Text></TouchableOpacity>
                                             <TouchableOpacity style={[styles.button, styles.incorrectButton]} onPress={this.onIncorrect}>
-                                                <Text style={styles.buttonText}>Incorrect</Text>
+                                                <Text style={styles.buttonText}>Incorrect Answer</Text>
                                             </TouchableOpacity>
                                         </View>
                                 </View>)
                                 : (
                                     <View style={styles.container}>
-                                        <View  style={styles.groupA}>
-                                            <Text style={{fontSize: 24, color: '#455356', padding: 10}}>Total Questions: {questions.length}</Text>
-                                            <Text style={{fontSize: 24, color: '#455356', padding: 10}}>Correct Guesses: {correctGuesses}</Text>
-                                            <Text style={{fontSize: 24, color: '#455356', padding: 10}}>Incorrect Guesses: {wrongGuesses}</Text>                               
+                                        <View  style={styles.first}>
+                                            <Text style={{fontSize: 25, color: textGray, padding: 10}}>Total Questions: {questions.length}</Text>
+                                            <Text style={{fontSize: 25, color: textGray, padding: 10}}>Correct Answers: {correctAnswers}</Text>
+                                            <Text style={{fontSize: 25, color: textGray, padding: 10}}>Incorrect Answers: {wrongAnswers}</Text>                               
                                         </View>
-                                        <View style={styles.groupB}>
-                                            <TouchableOpacity style={[styles.button, {backgroundColor: blue}]} onPress={this.restartQuiz}>
-                                                <Text style={styles.buttonText}>Restart Quiz</Text>
+                                        <View style={styles.second}>
+                                            <TouchableOpacity style={[styles.button, {backgroundColor: orange}]} onPress={this.restartQuiz}>
+                                                <Text style={styles.buttonText}>Take a Quiz Again</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={[styles.button, {backgroundColor: blue}]} onPress={this.navigateToDeck}>
+                                            <TouchableOpacity style={[styles.button, {backgroundColor: orange}]} onPress={this.backToDeck}>
                                                 <Text style={styles.buttonText}>Back to Deck</Text>
                                             </TouchableOpacity>
                                         </View>
@@ -113,62 +105,57 @@ class Quiz extends Component {
                         )
                 }
             </View>
-        )
-    }
-}
+        )}}
 
 export default withNavigation(Quiz)
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    groupA: {
-        marginTop: 115,
-        flex: 2,
+        marginBottom:50,
+        },
+    first: {
         alignItems: 'center',
+        marginTop: 120,
+        flex: 2,  
     },
-    groupB: {
+    second: {
         flex: 1,
     },
-    counterText: {
+    countSentence: {
+         fontSize: 20,
         padding: 10,
-        fontSize: 18,
     },
     questionText: {
         textAlign: 'center',
-        fontSize: 32,
-        color: '#455356',
+        fontSize: 35,
+        color: textGray,
         marginHorizontal: 20,
     },
-    flipText: {
-        fontSize: 22,
+    flippedText: {
+        fontSize: 25,
         fontWeight: 'bold',
-        color: red,
-        marginHorizontal: 30,
-        marginTop: 25,
+        color: blue,
+        marginTop: 30,
     },
     button: {
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        borderRadius: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,   
+        borderRadius: 20,  
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 15,
     },
+ 
+    buttonText: {
+        fontSize: 20,
+        color: 'white',      
+    },   
     correctButton: {
         backgroundColor: green,
     },
     incorrectButton: {
         backgroundColor: red,
-    },
-    buttonText: {
-        fontSize: 18,
-        color: 'white',      
     }
 })
