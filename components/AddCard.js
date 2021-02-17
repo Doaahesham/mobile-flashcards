@@ -50,8 +50,8 @@ class AddCard extends Component {
             //input question and answer
             <View>
                 <View style={styles.inputContainer}>
-                    <TextInput value={this.state.question} style={styles.input} placeholder='Please Enter The Question' onChangeText={this.handleQuestion}/>
-                    <TextInput value={this.state.answer} style={styles.input} placeholder='Please Enter The Answer'onChangeText={this.handleAnswer}/>
+                    <TextInput  style={styles.input} value={this.state.question} placeholder='Please Enter The Question' onChangeText={this.handleQuestion}/>
+                    <TextInput  style={styles.input} value={this.state.answer} placeholder='Please Enter The Answer'onChangeText={this.handleAnswer}/>
                 </View>
                 <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
                     <Text style={styles.buttonText}>Submit</Text>

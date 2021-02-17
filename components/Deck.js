@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { darkGray,white, blue } from '../utils/color'
 class Deck extends Component {
     render() {
-        //shape of deck and 
+        //shape of deck
         return(
             <TouchableOpacity style={styles.shape} onPress={() => this.props.navigation.navigate(
                 'DeckDetail',

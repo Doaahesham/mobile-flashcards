@@ -21,7 +21,7 @@ class ListDeck extends Component {
         return(
             Object.keys(data).length === 0 
             ? <View style={styles.container}>
-                <Text style={styles.warning}>Empty! Let's Create New Deck :)</Text> 
+                <Text style={styles.warning}>Empty! Let's Create a New Deck :)</Text> 
             </View>
             : <View style={styles.container}>
                 <FlatList style={styles.flatList} numColumns='2' data={data}renderItem={this.renderItem} keyExtractor={(item) => item.title}/>

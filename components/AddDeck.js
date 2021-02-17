@@ -42,7 +42,7 @@ class AddDeck extends Component {
         return(
             <View style={styles.container}>
                 <Text style={styles.text}>What Is The Title?</Text>
-                <TextInput style={styles.input} value={this.state.input} onChangeText={this.handleInput} placeholder='Deck Title' />
+                <TextInput value={this.state.input} style={styles.input} onChangeText={this.handleInput} placeholder='Deck Title' />
                 <TouchableOpacity style={styles.button} onPress={this.submitDeck}>
                     <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
