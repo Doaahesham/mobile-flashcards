@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar,StyleSheet } from 'react-native';
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { createStackNavigator } from 'react-navigation-stack'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
-import { white, blue } from './utils/color'
+import { white, blue, orange } from './utils/color'
 import Constants from 'expo-constants'
 import { setStorage } from './utils/apiHelpers'
 import { localNotification } from './utils/helpers'
@@ -97,18 +97,23 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
  export default class App extends React.Component {
   componentDidMount() {
-    console.log('App component mounted')
     localNotification()
-    // setStorage()
+    setStorage()
   }
   render() {
     return (
       <Provider store={store}>
-        <View style={{flex: 1}}>
-          <FlashCardStatusBar  backgroundColor={blue}/>
+        <View style={styles.container}>
+          <FlashCardStatusBar  backgroundColor={orange}/>
           <Nav />
         </View>
       </Provider>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: orange,
+  }
+});
