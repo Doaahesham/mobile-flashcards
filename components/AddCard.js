@@ -1,42 +1,42 @@
 import React, { Component } from 'react'
 import { TextInput, View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import { blue } from '../utils/color'
+import { white,textGray,orange, blue } from '../utils/color'
 import { connect } from 'react-redux'
 import { handleCreateCard } from '../actions/index'
 class AddCard extends Component {
     state = {
         question: '',
         answer: '',
-    }
-
-    handleQuestionChange = (text) => {
-        this.setState(() => ({
-            question: text
-        }))
-    }
-
-    handleAnswerChange = (text) => {
+    } 
+    
+    handleAnswer = (text) => {
         this.setState(() => ({
             answer: text
         }))
     }
 
-    handleSubmitCard = () => {
+    handleQuestion = (text) => {
+        this.setState(() => ({
+            question: text
+        }))
+    }
+
+    handleSubmit = () => {
         const { question, answer } = this.state
         const card = {question, answer}
         const title = this.props.navigation.state.params.title
 
-        if (question === '' && answer === '') {
+        if (question === '' || answer === '') {
             Alert.alert(
-                "Empty Fields",
-                "You need to fill both fields!",
+                "Empty!!",
+                "Please Fill Question and Answer to Submit!",
                 [{text: "OK", onPress:() => {}}],
                 {cancelable: false}
             )
         } else {
             this.props.createCard(title, card)
 
-            // set values back to empty
+//to set question and answer empty
             this.setState(() => ({
                 question: '',
                 answer: ''
@@ -46,22 +46,13 @@ class AddCard extends Component {
 
     render() {
         return (
+            //input question and answer
             <View>
                 <View style={styles.inputContainer}>
-                    <TextInput 
-                        value={this.state.question}
-                        style={styles.input} 
-                        placeholder='Question' 
-                        onChangeText={this.handleQuestionChange}/>
-                    <TextInput 
-                        value={this.state.answer}
-                        style={styles.input} 
-                        placeholder='Answer'
-                        onChangeText={this.handleAnswerChange}
-                        />
+                    <TextInput value={this.state.question} style={styles.input} placeholder='Please Enter The Question' onChangeText={this.handleQuestion}/>
+                    <TextInput value={this.state.answer} style={styles.input} placeholder='Please Enter The Answer'onChangeText={this.handleAnswer}/>
                 </View>
-
-                <TouchableOpacity style={styles.button} onPress={this.handleSubmitCard}>
+                <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
                     <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -80,29 +71,27 @@ const styles = StyleSheet.create({
 
     },
     inputContainer: {
-        marginTop: 30,
+        marginTop: 200,
+        marginLeft:60,
     },
-    input: {
+    input: { 
+        padding: 10,
         marginHorizontal: 30,
         marginBottom: 30,
-        padding: 10,
+       
     },
     button: {
-        backgroundColor: blue,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15,
+        backgroundColor: orange,
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        borderRadius: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 6,        
+        borderRadius: 20,
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 15,    
     },
     buttonText: {
-        fontSize: 18,
-        color: 'white',        
+        fontSize: 20,
+        color: white,        
     }
 })
