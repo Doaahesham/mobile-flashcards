@@ -27,7 +27,9 @@ class Quiz extends Component {
                 const { questions, correctAnswers, index, finish } = previousState
                 return {correctAnswers: correctAnswers + 1 ,
                     index: index === (questions.length - 1) ? questions.length - 1 : index + 1,
-                    finish: index === (questions.length - 1) && !finish }})}}
+                    finish: index === (questions.length - 1) && !finish }});
+                    this.setState({isFlipped:false});
+                }}
 
     onIncorrect = () => {
         if (!this.state.finish) {
@@ -38,7 +40,7 @@ class Quiz extends Component {
                     index: index === (questions.length - 1) ? questions.length - 1 : index + 1,
                     finish: index === (questions.length - 1) && !finish 
                 }
-            })
+            });this.setState({isFlipped:false});
         }
     }
 
